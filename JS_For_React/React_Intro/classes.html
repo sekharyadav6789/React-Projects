@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- ui highly optimized way -> manipulate  -->
+    <!-- algorithm -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- react through -> Dom change  -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- bebel -> JSX -> js -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin></script>
+
+</head>
+<body>
+    <div id="root"></div>
+    <!-- a make anything dynamic -->
+    <!-- imagine a static initial UI -->
+    <!-- identify different variable and add them to state -->
+    <!-- whenever you will change the state i will change the render function again -->
+        <script type="text/babel">
+            class Counter extends React.Component {
+                //inbuilt function 1
+                constructor(props){
+                    //first you need to call constructor react.component
+                    super(props);
+                    this.state={
+                        count:0
+                    }
+                    //bind
+                    this.decrement=this.decrement.bind(this);
+                    this.increment=this.increment.bind(this);
+                }
+
+                increment() {
+                    this.setState({
+                        count: this.state.count+1
+                    })
+                }
+
+                decrement() {
+                    this.setState({
+                        count: this.state.count-1
+                    })
+                }
+                //render -> html
+                //inbuilt function 2
+                render() {
+                    return(
+                        <React.Fragment>
+                            <p>{this.state.count}</p>
+                            <button onClick={this.increment}>+</button>
+                            <button onClick={this.decrement}>-</button>
+                        </React.Fragment>
+                    )
+                }
+            }
+            //bottom to top
+            //what is happening inside
+            // let counter={
+            //     state={count:0}
+            //     decrement: decrement,
+            //     increment: increment
+            // }
+            // let counter=new Counter();
+            // counter.render();
+
+            function Counters() {
+                return (
+                    <React.Fragment>
+                        <Counter></Counter>
+                        <Counter></Counter>
+                        <Counter></Counter>
+                        <Counter></Counter>
+                        <Counter></Counter>
+                    </React.Fragment>
+                )
+            }
+            //render displays the content on the webpage
+            ReactDOM.render(<Counters/>,document.getElementById("root"));
+
+        </script>
+</body>
+</html>

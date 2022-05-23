@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- ui highly optimized way -> manipulate  -->
+    <!-- algorithm -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- react through -> Dom change  -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- bebel -> JSX -> js -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin></script>
+
+</head>
+<body>
+    <div id="root"></div>
+        <script type="text/babel">
+            //component
+            // function Hello(props){
+            //     return (
+            //         <div>
+            //             <h1>Hello {props.name} </h1>
+            //             <p> How all of you are </p>
+            //         </div>
+            //     )
+            // }
+
+            function Hello({name="Default"}){
+                return (
+                    <div>
+                        <h1>Hello {name} </h1>
+                        <p> How all of you are </p>
+                    </div>
+                )
+            }
+
+            //hello component render
+            function Hellos(){
+                return(
+                    //React Fragment is used to wrap up the code and return
+                    <React.Fragment>
+                        {/*<Hello name="Jasbir"></Hello>*/}
+                        <Hello></Hello>
+                        <Hello name="Rajneesh"></Hello>
+                        <Hello name="Jitu"></Hello>
+                        <Hello name="Bhavesh"></Hello>
+                        <Hello name="Anirudh"></Hello>
+                    </React.Fragment>
+                )
+            }
+            //bottom to top
+            //render displays the content on the webpage
+            ReactDOM.render(<Hellos></Hellos>,document.getElementById("root"));
+
+        </script>
+</body>
+</html>
