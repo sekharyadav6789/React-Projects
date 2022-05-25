@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 //import { getMovies } from '../temp/MovieService';
 //import { FaBeer } from 'react-icons/fa';
+import Pagination from "./Pagination.jsx";
+import List from "./List.jsx";
 export default class MoviesPage extends Component {
     state={
         movies:[],
@@ -77,6 +79,12 @@ export default class MoviesPage extends Component {
         currPage:pageNumber
       })
     }
+    groupBygenre=(name)=>{
+      this.setState({
+        cGenre:name,
+        currSearchText:""
+      })
+    }
   async componentDidMount(){
       // let respPromise=fetch("https://react-backend101.herokuapp.com/movies");
       // respPromise.then((response)=>{
@@ -101,36 +109,37 @@ export default class MoviesPage extends Component {
       });
     }
   render() {
-    //console.log("Hi");
-    let {movies,currSearchText,limit,currPage,genres}=this.state;
-    let filteredArr=this.state.movies.filter((movieObj)=>{
+
+    let {movies,currSearchText,limit,currPage,genres,cGenre}=this.state;
+    let filteredArr=movies;
+
+    if(cGenre!=="All Genres"){
+      filteredArr=filteredArr.filter((movieObj)=>{
+        return movieObj.genre.name===cGenre;
+      })
+    }
+    
+    if(currSearchText!==""){
+      filteredArr=filteredArr.filter((movieObj)=>{
       let title=movieObj.title.trim().toLowerCase();
       return title.includes(currSearchText.toLowerCase());
-    })
-    if(currSearchText===""){
-      filteredArr=this.state.movies;
+      })
     }
    // console.log(currSearchText);
    let numberofPage=Math.ceil(filteredArr.length/limit);
-   let pageNumberArr=[];
-   for(let i=0;i<numberofPage;i++){
-     pageNumberArr.push(i+1);
-   }
+  
    let si=(currPage-1)*limit;
    let ei=parseInt(limit+si);
    filteredArr=filteredArr.slice(si,ei);
-   console.log(typeof limit);
+   //console.log(typeof limit);
    return(
      <div className="row">
      {/* <FaBeer/> */}
         <div className="col-3">
-        <ul class="list-group">
-          {
-          genres.map((cgObj)=>{
-              return(<li class="list-group-item" key={cgObj.id}>{cgObj.name}</li>)
-            })
-          }
-        </ul>
+        <List
+        genres={genres}
+        groupBygenre={this.groupBygenre}
+        ></List>
         </div>
         <div className="col-9">
         <input type="search" value={currSearchText} onChange={this.setCurrentText} placeholder="Enter"></input>
@@ -170,20 +179,11 @@ export default class MoviesPage extends Component {
             </tbody>
           </table>
           
-          <nav aria-label="..." className='col-2'>
-            <ul class="pagination">
-              {
-                pageNumberArr.map((pageNumber)=> {
-                  let additional=currPage==pageNumber?"page-item active":"page-item";
-                return(
-                  <li className={additional} aria-current="page" onClick={()=>{ this.changeCurrentPage(pageNumber)}}>
-                  <span className="page-link">{pageNumber}</span>
-                  </li>
-                )
-              })
-            }
-            </ul>
-          </nav>
+          <Pagination
+          numberofPage={numberofPage}
+          currPage={currPage}
+          changeCurrentPage={this.changeCurrentPage}
+          ></Pagination>
           
         </div>
       </div>
@@ -192,5 +192,7 @@ export default class MoviesPage extends Component {
      
   }
 }
+
+
 
 
