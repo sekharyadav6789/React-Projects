@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 //import { FaBeer } from 'react-icons/fa';
 import Pagination from "./Pagination.jsx";
 import List from "./List.jsx";
+import New from "./New.jsx";
 export default class MoviesPage extends Component {
     state={
         movies:[],
@@ -125,13 +126,12 @@ export default class MoviesPage extends Component {
       return title.includes(currSearchText.toLowerCase());
       })
     }
-   // console.log(currSearchText);
+
    let numberofPage=Math.ceil(filteredArr.length/limit);
-  
    let si=(currPage-1)*limit;
    let ei=parseInt(limit+si);
    filteredArr=filteredArr.slice(si,ei);
-   //console.log(typeof limit);
+
    return(
      <div className="row">
      {/* <FaBeer/> */}
@@ -142,6 +142,7 @@ export default class MoviesPage extends Component {
         ></List>
         </div>
         <div className="col-9">
+        <New></New>
         <input type="search" value={currSearchText} onChange={this.setCurrentText} placeholder="Enter"></input>
         <input type="number" className='col-1' placeholder='no of elements/page' value={limit} onChange={this.changelimit}></input>
         {/* <input type="search" className="pageNumber" placeholder='page Number'></input> */}
