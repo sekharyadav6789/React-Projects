@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 //import { FaBeer } from 'react-icons/fa';
 import Pagination from "./Pagination.jsx";
 import List from "./List.jsx";
+import {Link} from "react-router-dom";
 import New from "./New.jsx";
 export default class MoviesPage extends Component {
     state={
@@ -142,7 +143,11 @@ export default class MoviesPage extends Component {
         ></List>
         </div>
         <div className="col-9">
-        <New></New>
+        <button type="button" class="btn btn-primary">
+          <Link to="/new" className='text-light'>New</Link>
+        </button>
+
+        {/*<New></New> -> never call any component except app.js*/}
         <input type="search" value={currSearchText} onChange={this.setCurrentText} placeholder="Enter"></input>
         <input type="number" className='col-1' placeholder='no of elements/page' value={limit} onChange={this.changelimit}></input>
         {/* <input type="search" className="pageNumber" placeholder='page Number'></input> */}
