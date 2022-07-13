@@ -6,6 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Routing from './Routing';
 import { BrowserRouter } from "react-router-dom";
+import Hooks from './component/Hooks';
 
 
 ReactDOM.render(
@@ -13,6 +14,7 @@ ReactDOM.render(
 //     <BrowserRouter>
 //        <Routing></Routing>
 // </BrowserRouter>
+,{/* <Hooks> </Hooks> */}
    ,document.getElementById('root')
 );
 

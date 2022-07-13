@@ -7,22 +7,11 @@ import {Link} from "react-router-dom";
 import New from "./New.jsx";
 export default class MoviesPage extends Component {
     state={
-        movies:[],
         genres:[{id:1 , name:"All Genres"}],
         currSearchText:"",
         limit: 4,
         currPage: 1,
         cGenre: "All Genres"
-    }
-    deletemovies=(id)=>{
-      let copyArr=this.state.movies;
-      let filteredmovies=copyArr.filter((movieObj)=>{
-        return movieObj._id!==id;
-      })
-      this.setState({
-        movies:filteredmovies
-      })
-
     }
     setCurrentText=(e)=>{
       let task=e.target.value;
@@ -98,21 +87,22 @@ export default class MoviesPage extends Component {
       //   })
       // })
       //retriving the backended data from the heroku.
-      let respPromise=await fetch("https://react-backend101.herokuapp.com/movies");
-      let jsonMovies= await respPromise.json();
-      this.setState({
-        movies:jsonMovies.movies
-      });
+      // let respPromise=await fetch("https://react-backend101.herokuapp.com/movies");
+      // let jsonMovies= await respPromise.json();
+      // this.setState({
+      //   movies:jsonMovies.movies 
+      // });
 
-      respPromise=await fetch("https://react-backend101.herokuapp.com/genres");
+      let respPromise=await fetch("https://react-backend101.herokuapp.com/genres");
       let jsonGenres= await respPromise.json();
       this.setState({
         genres: [...this.state.genres, ...jsonGenres.genres]
       });
     }
   render() {
-
-    let {movies,currSearchText,limit,currPage,genres,cGenre}=this.state;
+    console.log("movies");
+    let {currSearchText,limit,currPage,genres,cGenre}=this.state;
+    let {movies, deleteEntry }=this.props;
     let filteredArr=movies;
 
     if(cGenre!=="All Genres"){
@@ -177,7 +167,8 @@ export default class MoviesPage extends Component {
                   <td>{movieObj.numberInStock}</td>
                   <td>{movieObj.dailyRentalRate}</td>
                   <td>
-                    <button type="button" class="btn btn-danger" onClick={()=>{this.deletemovies(movieObj._id)}}>Delete</button>
+                    <button type="button" class="btn btn-danger" onClick={()=>{deleteEntry(movieObj._id);
+                    }}>Delete</button>
                   </td>
                   </tr>
                 )

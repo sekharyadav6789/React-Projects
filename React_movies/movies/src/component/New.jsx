@@ -1,18 +1,41 @@
 import React, { Component } from 'react'
 
 export default class New extends Component {
-  handleSubmit=()=>{
-    
+  state = {
+    data: {
+        title: "",
+        genre: "",
+        stock: "",
+        rate: ""
+    }
+  }
+  handleSubmit=(e)=>{
+    //The preventDefault() method does not prevent further propagation of an event through the DOM.
+    e.preventDefault();
+    this.props.addMovie(this.state.data);
+  }
+  handleChange=(e)=>{
+    let id=e.currentTarget.id;
+    //console.log(id)
+    let value = e.target.value;
+    let newobject = { ...this.state.data };
+    newobject[id] = value;
+
+    this.setState({
+        data: newobject
+    })
   }
   render() {
+    let { title, genre, stock, rate } = this.state.data;
     return (
+
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="title">
           Title:
-          <input type="text" id="title"/>
+          <input type="text" id="title" value={title} onChange={this.handleChange}/>
         </label>
 
-        <label htmlFor="genre">
+        <label htmlFor="genre" value={genre} onChange={this.handleChange}>
           Genre
           <select>
           <option value="Action">Action</option>
@@ -21,15 +44,17 @@ export default class New extends Component {
           </select>
         </label>
 
-        <label htmlFor="stock">
+        <label htmlFor="stock" value={stock} onChange={this.handleChange}>
           Stock
           <input type="number" id="stock"/>
         </label>
 
-        <label htmlFor="rate">
+        <label htmlFor="rate" value={rate} onChange={this.handleChange}>
           Rate
           <input type="number" id="rate"/>
         </label>
+
+        <input type="submit" value="Submit" />
       </form>
     )
   }
