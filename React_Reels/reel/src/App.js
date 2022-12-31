@@ -7,6 +7,7 @@ function App() {
   const handleSubmit = () => {
     alert (email + password);
   }
+
   return (
    <>
    <h1> Firebase Login </h1>
