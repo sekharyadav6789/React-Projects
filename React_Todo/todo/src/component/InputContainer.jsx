@@ -18,7 +18,8 @@ import React, { Component } from 'react'
     render(){
         return(
             <div className="input-container">
-              <input type="text" value={this.state.currTask} 
+              <input type="text"
+              value={this.state.currTask} 
               onChange={this.handleCurrTask}></input>
               <button onClick={this.sendcurrentTaskToparent}>submit</button>
             </div>
